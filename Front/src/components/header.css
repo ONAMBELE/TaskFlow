@@ -1,0 +1,90 @@
+.Header{
+    height: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:  0.5em 2em 0.5em 1em;
+    border-bottom: 1px solid var(--color2);
+    background-color: var(--bg1);
+    width: 90%;
+    position: fixed;
+    left: 5%;
+    top: 0.5em;
+    border-radius: 1em; 
+    box-shadow: 0 0 10px rgb(87, 85, 85);
+    z-index: 200;
+}
+
+.Header h1{
+    width: max-content;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    color: var(--color1);
+}
+
+.Header h1 img{
+    margin: 0;
+    width: 1.75em;
+    height: 100%;
+}
+
+.Header .register{
+    width: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Header .register a{
+    text-decoration: none;
+    color: rgb(56, 56, 235);
+    font-family: "poppins";
+}
+
+@media screen and (max-width: 1156px){
+    
+    .Header h1{
+        font-size: 25px;
+    }
+
+    .Header .register {
+        width: 7em;
+    }
+}
+
+
+@media screen and (max-width:832px){
+    
+    .Header{
+        width: 95%;
+        left: 2.5%;
+    }
+
+}
+
+.profile{
+    border: 1px solid var(--color2);
+    width: 3em;
+    height: 100%;
+    border-radius: 5em;
+    background-image: url("/img.png");
+    background-size: cover;
+    background-position: center;
+
+}
+
+
+
+@media screen and (max-width: 360px){
+    
+    .Header h1{
+        font-size: 25px;
+    }
+
+    .Header .register {
+        width: 7em;
+        font-size: 12px;
+    }
+
+}
