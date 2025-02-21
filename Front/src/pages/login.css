@@ -11,6 +11,8 @@
     background: linear-gradient(rgba(46, 44, 44, 0.479),rgba(0, 0, 0, 0.24)),url("/bg2.jpg");
     background-size: cover;
     background-position: center;
+    position: absolute;
+    top: 0;
 }
 
 .Login form{

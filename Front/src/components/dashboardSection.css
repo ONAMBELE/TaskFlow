@@ -56,6 +56,7 @@
 }
 
 .DashboardSection table tbody td{
+    position: relative;
     color: rgb(0, 0, 0);
 }
 
@@ -66,6 +67,27 @@
     width: 15%;
     text-align: center;
 }
+
+.DashboardSection table tbody img{
+    width: 1.25em;
+    height: 1.25em;
+    position: absolute;
+    border-radius: 3px;
+    padding: 2px;
+}
+
+.DashboardSection table tbody td img:nth-child(2){
+    background-color: rgb(0, 226, 170);
+    border: 1px solid grey;
+    left: 0;
+    bottom: 0;
+}
+.DashboardSection table tbody td img:nth-child(3){
+    background-color: rgb(240, 20, 20);
+    right: 0;
+    bottom: 0;
+}
+
 
 @media  screen and (max-width:750px){
 

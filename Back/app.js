@@ -23,7 +23,7 @@ sequelize.initBD()
 require("./routes/user/setUser")(app)
 require("./routes/task/setTask")(app)
 require("./routes/task/getTask")(app)
-
+require("./routes/user/getUser")(app)
 
 app.use(({res})=>{
     const message = "Impossible de trouver le service demandé. Veuillez saisir une autre URL."

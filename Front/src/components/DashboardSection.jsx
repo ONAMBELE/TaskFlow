@@ -2,60 +2,67 @@ import { useEffect, useState } from "react"
 import FormAddTask from "./FormAddTask"
 import "./dashboardSection.css"
 import axios from "axios"
+import Header from "./Header"
 
 
 export default function DashboardSection() {
     const [formTask,setFromTask] = useState("")
+    const [email,setEmail] = useState("")
     
+    function findIndex(value,daysOFweek) {
+        let dayIndex,hourIndex=0;
+        dayIndex = daysOFweek.indexOf(value.day)
+
+        for (let i = 0; i < 24; i+=2) {
+            if (value.hour.split(":")[0] < i+2) {
+                break;
+            }
+            hourIndex+=1;
+        } 
+        return [dayIndex,hourIndex]
+    }
+
     useEffect(()=>{
         const table = document.querySelector("table tbody")
         const daysOFweek = [
             "MONDAY","TUESDAY","WEDNESDAY","THURSDAY",
             "FRIDAY","SATURDAY","SUNDAY"    
         ]
+        setEmail(localStorage.getItem("email"))
+        console.log("Email: " + email)
 
-
-        function findIndex(value,daysOFweek) {
-            let dayIndex,hourIndex=0;
-            dayIndex = daysOFweek.indexOf(value.day)
-
-            for (let i = 0; i < 24; i+=2) {
-                if (value.hour.split(":")[0] < i+2) {
-                    break;
-                }
-                hourIndex+=1;
-            } 
-            return [dayIndex,hourIndex]
-        }
-
-        axios.get("http://localhost:3000/api/getTask?idUser=kono@gmail.com")
-        .then(task=>{
-            let tasks = task.data.data
-            let dayIndex,hourIndex
-            tasks.map((value, index)=>{
-                [dayIndex,hourIndex] = findIndex(value,daysOFweek)
-                table.childNodes[hourIndex].childNodes[dayIndex+1].innerText = value.object
-                if (value.priority === "green") {
-                    table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority1)`
-                }
-                if (value.priority === "yellow") {
-                    table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority2)`
-                }
-                if (value.priority === "red") {
-                    table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority3)`
-                }
-            })
-        })
-        .catch(error=>{
-            console.log("Error: " + error)
-        })
-
-
+        setTimeout(() => {
+            if (email !== null) {
+                axios.get(`http://localhost:3000/api/getTask?idUser=${email}`)
+                .then(task=>{
+                    let tasks = task.data.data
+                    let dayIndex,hourIndex
+                    tasks.map((value, index)=>{
+                        [dayIndex,hourIndex] = findIndex(value,daysOFweek)
+                        table.childNodes[hourIndex].childNodes[dayIndex+1].innerText = value.object
+                        if (value.priority === "green") {
+                            table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority1)`
+                        }
+                        if (value.priority === "yellow") {
+                            table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority2)`
+                        }
+                        if (value.priority === "red") {
+                            table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority3)`
+                        }
+                    })
+                })
+                .catch(error=>{
+                    //console.error("Error: " + error)
+                })
+            }
+        }, 750);
 
     })
 
     return (
+
         <div className="DashboardSection">
+            <Header/>
             {
                 formTask
             }
@@ -65,6 +72,7 @@ export default function DashboardSection() {
                         setFromTask(
                             <FormAddTask
                                 display="flex"
+                                email={email}
                             />
                         )
                     }}
@@ -88,9 +96,7 @@ export default function DashboardSection() {
                         <td>
                             
                         </td>
-                        <td>
-                            
-                        </td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

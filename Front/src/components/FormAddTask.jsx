@@ -11,32 +11,19 @@ export default function FormAddTask(props) {
     const [priority,setPriority] = useState("")
 
     function handlePost() {
-        
         axios.post("http://localhost:3000/api/setTask",{
-            day: day,
-            hour: hour,
-            object: description,
-            idUser: "kono@gmail.com",
-            priority: priority
-        }).then(res=>{
-            console.log(res)
-            window.location.reload()
-        })
-        .catch(err=>{
-            console.log("Error: " + err)
-        })
+            day: day, hour: hour, object: description, idUser: props.email,priority: priority
+        }).then(res=>{ window.location.reload()})
+        .catch(err=>{ console.log("Error: " + err)})
     }
 
 
     return (
         <form action="" className="FormAddTask"
-            onSubmit={(e)=>{
-                e.preventDefault()
+            onSubmit={(e)=>{ e.preventDefault()
                 handlePost()
             }}
-            style={{
-                display: `${display}`
-            }}
+            style={{ display: `${display}` }}
         >
             
             <img className="close top"  src="/close.svg" alt="close" 
@@ -62,11 +49,8 @@ export default function FormAddTask(props) {
                 <option value="SATURDAY">SATURDAY</option>
                 <option value="SUNDAY">SUNDAY</option>
             </select>
-            <select name="priority" id="priority" 
-                value={priority} onChange={(e)=>{
-                        setPriority(e.target.value)
-                    }} 
-                    required
+            <select name="priority" id="priority" required
+                value={priority} onChange={(e)=>{ setPriority(e.target.value) }}       
             >
                 <option value="" disabled hidden>Niveau de priorité de la tache</option>
                 <option value="green">Faible(vert)</option>
@@ -74,14 +58,9 @@ export default function FormAddTask(props) {
                 <option value="red">Elevée(Rouge)</option>
             </select>
             <input type="time" name="time" id="time" placeholder="Heure (Au format heure:minute)" required 
-                onChange={(e)=>{
-                    setHour(e.target.value)
-                }}
+                onChange={(e)=>{ setHour(e.target.value) }}
             />
-            <button className="addBtn"
-            
-            >ADD</button>
+            <button className="addBtn">ADD</button>
         </form>
     )
-
 }

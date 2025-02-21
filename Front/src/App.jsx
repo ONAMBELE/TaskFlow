@@ -1,19 +1,25 @@
 import { useState } from 'react'
 import './App.css'
-import Header from './components/Header'
+import { BrowserRouter,Routes,Route } from 'react-router-dom'
 import SignIn from './pages/SignIn'
 import Login from './pages/Login'
-import FormAddTask from './components/FormAddTask'
 import DashboardSection from './components/DashboardSection'
-import PopUpViewTask from './components/PopUpViewTask'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [account, setAccount] = useState("")
+
+
 
   return (
     <>
-      <Header/>
-      <DashboardSection/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/signin" element={<SignIn/>}/>
+          <Route path="/dashboard" element={ <DashboardSection/> } />
+          <Route path="*" element={<Login/>}/>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

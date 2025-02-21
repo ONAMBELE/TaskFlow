@@ -13,10 +13,10 @@ module.exports = (app)=>{
         })
         .catch(error => {
 			if(error instanceof ValidationError){
-				res.status(400).json({message: error.message, data:error})
+				return res.status(400).json({message: error.message, data:error})
 			}
 			if(error instanceof UniqueConstraintError){
-				res.status(400).json({message: error.message, data: error})
+				return res.status(400).json({message: error.message, data: error})
 			}
 
 			const message = `La tache ${req.body.id} n'a pas pu etre ajoutée. Reessayez dans quelques instants.`
