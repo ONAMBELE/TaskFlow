@@ -1,6 +1,6 @@
-/Back
+/Back </br>
   npm install
 
-/Front
+/Front </br>
   npm install || pnpm install
   
