@@ -1,8 +1,7 @@
 [build]
-  publish = "public"              # Dossier de publication contenant ton index.html
-  functions = "netlify/functions" # Dossier contenant tes fonctions serverless
+  functions = "netlify/functions"
 
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/api"
+  to = "/.netlify/functions/api/:splat"
   status = 200
