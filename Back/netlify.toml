@@ -1,5 +1,6 @@
 [build]
-  functions = "netlify/functions"
+  publish = "public"              # Dossier de publication contenant ton index.html
+  functions = "netlify/functions" # Dossier contenant tes fonctions serverless
 
 [[redirects]]
   from = "/api/*"
