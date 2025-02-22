@@ -7,16 +7,23 @@ const cors = require("cors")
 const app = express()
 const PORT = 3000
 
+const serverless = require("serverless-http")
+
 app
     .use(bodyParser.json())
     .use(express.urlencoded({ extended:true }))
     .use(morgan('dev'))
     .use(cors())
+    .use(express.json())
 
 
 app.get("/",(req,res)=>{
     res.send("Hello depuis l'API.")
 })
+
+app.get("/hello", (req, res) => {
+    res.json({ message: "Hello from Netlify Functions!" });
+});
 
 sequelize.initBD()
 
@@ -34,3 +41,5 @@ app.use(({res})=>{
 app.listen(PORT,()=>{
     console.log(`L'application écoute sur le port ${PORT}`)
 })
+
+module.exports.handler = serverless(app);
