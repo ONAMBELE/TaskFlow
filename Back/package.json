@@ -4,6 +4,7 @@
   "description": "Backend Pl-Mnager",
   "main": "app.js",
   "scripts": {
+    "build": "echo 'No build step needed'",
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
