@@ -1,0 +1,36 @@
+:root{
+  --color1: #1405eb;
+  --color2: #999797;
+  --bg1: hsl(286, 100%, 23%);
+
+  --priority1: rgb(12, 245, 12);
+  --priority2: rgba(255, 255, 0, 0.904);
+  --priority3: rgb(248, 0, 0);
+}
+
+
+
+*{
+  margin: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+button,input[type="submit"]{
+  cursor: pointer;
+}
+
+@font-face {
+  font-family: "poppins";
+  src: url("./assets/Poppins-Medium.ttf");
+}
+
+@font-face {
+  font-family: "poppins-thin";
+  src: url("./assets/Poppins-Thin.ttf");
+}
+
+@font-face {
+  font-family: "poppins-bold";
+  src: url("./assets/Poppins-Black.ttf");
+}
