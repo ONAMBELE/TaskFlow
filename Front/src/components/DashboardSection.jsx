@@ -8,7 +8,8 @@ import Header from "./Header"
 export default function DashboardSection() {
     const [formTask,setFromTask] = useState("")
     const [email,setEmail] = useState("")
-    
+    const [_class,setClass] = useState("")
+
     function findIndex(value,daysOFweek) {
         let dayIndex,hourIndex=0;
         dayIndex = daysOFweek.indexOf(value.day)
@@ -22,14 +23,19 @@ export default function DashboardSection() {
         return [dayIndex,hourIndex]
     }
 
+    function printInstructions() {
+        setClass(
+            <p className="message ">Double cliquer sur la tache pour plus d'options</p>
+        )
+        setTimeout(() => {
+            setClass("")
+        }, 4000);
+    }
+
     useEffect(()=>{
         const table = document.querySelector("table tbody")
-        const daysOFweek = [
-            "MONDAY","TUESDAY","WEDNESDAY","THURSDAY",
-            "FRIDAY","SATURDAY","SUNDAY"    
-        ]
+        const daysOFweek = [ "MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY" ]
         setEmail(localStorage.getItem("email"))
-        console.log("Email: " + email)
 
         setTimeout(() => {
             if (email !== null) {
@@ -52,7 +58,7 @@ export default function DashboardSection() {
                     })
                 })
                 .catch(error=>{
-                    //console.error("Error: " + error)
+                    console.error("Error: " + error)
                 })
             }
         }, 750);
@@ -63,24 +69,25 @@ export default function DashboardSection() {
 
         <div className="DashboardSection">
             <Header/>
-            {
-                formTask
-            }
-            <table>
-                <button className="add"
-                    onClick={()=>{
-                        setFromTask(
-                            <FormAddTask
-                                display="flex"
-                                email={email}
-                            />
-                        )
-                    }}
-                >+</button>
-    
+            {formTask}
+            {_class}
+
+            <div className="tasksDescriptions">
+                
+            </div>
+            
+            <table onClick={printInstructions} >
+
                 <thead>
                     <tr>
-                        <td></td>
+                        <td> 
+                            <button className="add"
+                                onClick={()=>{ setFromTask(
+                                        <FormAddTask display="flex" email={email} />
+                                    )
+                                }}
+                            >+</button> 
+                        </td>
                         <td>MON</td>
                         <td>TUE</td>
                         <td>WED</td>
