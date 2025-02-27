@@ -1,0 +1,97 @@
+.popUpPrintTasks{
+    position: absolute;
+    top: 0;
+    z-index: 99;
+    width: 60%;
+    padding: 1em;
+    background-color: transparent;
+    height: 25em;
+    overflow: hidden;
+}
+
+.popUpPrintTasks img{
+    position: absolute;
+    width: 4em;
+    height: 4em;
+    z-index: 102;
+    top: 50%;
+    border-radius: 100%;
+    transition: .1s;
+    opacity: .9;
+}
+
+.popUpPrintTasks img:hover{
+    transform: scale(1.1);
+}
+
+.popUpPrintTasks .previous{
+    left: 0;
+}
+.popUpPrintTasks .next{
+    right: 0;
+}
+
+
+.popUpPrintTasks .content{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow-x: auto;
+    behavior: smooth;
+    scrollbar-width: none;
+}
+
+
+
+.popUpPrintTasks .scroll{
+    position: absolute;
+    top: 4em;
+    left: 0;
+    width: max-content;
+    padding: 0;
+}
+
+.popUpPrintTasks .task{
+    display: inline-block;
+    border: 0;
+    width: 14em;
+    padding: 0.5em;
+    border-radius: 0.75em;
+    background-color: rgb(0, 194, 136);
+    margin: 0.5em;
+    box-shadow: 1px 1px 10px rgb(43, 42, 42);
+    height: 18em;
+}
+
+.popUpPrintTasks .task h5{
+    color: white;
+    font-family: "poppins";
+    margin-top: 0.5em;
+}
+
+.popUpPrintTasks .task p,li{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15px;
+    line-height: 15px;
+    color: rgb(48, 47, 47);
+}
+
+.popUpPrintTasks .task p{
+    padding-left: 1em;
+}
+
+.popUpPrintTasks .task ul{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 1em;
+    gap: 5px;
+    height: 30%;
+}
+
+.popUpPrintTasks .task .description{
+    height: 30%;
+    overflow-y: auto;
+}

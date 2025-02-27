@@ -66,6 +66,7 @@
     border-collapse: collapse;
     width: 60%;
     background-color: white;
+    border-radius: 0.5em;
     
 }
 
@@ -73,22 +74,16 @@
     background: linear-gradient(to right,rgba(252, 231, 203, 0.986),rgba(255, 122, 13, 0.815),rgba(151, 39, 146, 0.562),rgba(221, 10, 158, 0.938));
 }
 
-.DashboardSection .tasksDescriptions{
-    border: 1px solid green;
-    position: absolute;
-    top: 0;
-    z-index: 99;
-    width:75%;
-    height: 20em;
-}
 
 .DashboardSection table td,th{
     padding: 0.5em;
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
-    
+    width: 12.5%;
+    overflow: scroll;
 }
+
 
 .DashboardSection table th{
     color: rgb(68, 68, 68);

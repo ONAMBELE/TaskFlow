@@ -3,12 +3,17 @@ import FormAddTask from "./FormAddTask"
 import "./dashboardSection.css"
 import axios from "axios"
 import Header from "./Header"
+import PopUpPrintTasks from "./popUpPrintTasks"
 
 
 export default function DashboardSection() {
     const [formTask,setFromTask] = useState("")
     const [email,setEmail] = useState("")
     const [_class,setClass] = useState("")
+    const [popUpPrintTasks,setPopUpPrintTasks] = useState("")
+    const [tableVisibility,setTableVisibility] = useState("0")
+    let taskList = []
+
 
     function findIndex(value,daysOFweek) {
         let dayIndex,hourIndex=0;
@@ -23,13 +28,42 @@ export default function DashboardSection() {
         return [dayIndex,hourIndex]
     }
 
-    function printInstructions() {
+    function printInstructions(e) {
         setClass(
             <p className="message ">Double cliquer sur la tache pour plus d'options</p>
         )
         setTimeout(() => {
             setClass("")
         }, 4000);
+    }
+
+    function printTasksDescriptions(e) {
+        let td = document.getElementById(`${e.target.id}`)
+        let table = document.querySelectorAll("table tbody tr td")
+        
+        if (!td) {
+            return
+        } 
+        else if(td.getAttribute("class") === null) {
+            taskList.push({
+                description : td.innerText,
+                day: td.getAttribute("day"),
+                hour: td.getAttribute("hour")
+            })
+            table.forEach(task=>{
+                if (task.getAttribute("day") !== null && task.getAttribute("id") !== e.target.id) {
+                    taskList.push({
+                        description : task.innerText,
+                        day: task.getAttribute("day"),
+                        hour: task.getAttribute("hour")
+                    })
+                }
+            })
+        }
+        setTimeout(() => {
+            setPopUpPrintTasks(<PopUpPrintTasks taskList={taskList} />)
+            setTableVisibility("5px")
+        }, 1000);
     }
 
     useEffect(()=>{
@@ -46,6 +80,9 @@ export default function DashboardSection() {
                     tasks.map((value, index)=>{
                         [dayIndex,hourIndex] = findIndex(value,daysOFweek)
                         table.childNodes[hourIndex].childNodes[dayIndex+1].innerText = value.object
+                        table.childNodes[hourIndex].childNodes[dayIndex+1].setAttribute("id",value.id)
+                        table.childNodes[hourIndex].childNodes[dayIndex+1].setAttribute("day",value.day)
+                        table.childNodes[hourIndex].childNodes[dayIndex+1].setAttribute("hour",value.hour)
                         if (value.priority === "green") {
                             table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority1)`
                         }
@@ -65,18 +102,26 @@ export default function DashboardSection() {
 
     })
 
+    
+
     return (
 
         <div className="DashboardSection">
             <Header/>
             {formTask}
             {_class}
-
-            <div className="tasksDescriptions">
-                
-            </div>
-            
-            <table onClick={printInstructions} >
+            {
+                popUpPrintTasks
+            }           
+            <table onClick={(e)=>{
+                    printInstructions(e)
+                    setTableVisibility("0")
+                    setPopUpPrintTasks("")
+                }}
+                style={{
+                    filter: `blur(${tableVisibility})`
+                }}
+            >
 
                 <thead>
                     <tr>
@@ -97,7 +142,7 @@ export default function DashboardSection() {
                         <td>SUN</td>
                     </tr>
                </thead>
-               <tbody>
+               <tbody onDoubleClick={(e)=>{printTasksDescriptions(e)}}>
                     <tr>
                         <td className="hour">00:00 - 02:00</td>
                         <td>
