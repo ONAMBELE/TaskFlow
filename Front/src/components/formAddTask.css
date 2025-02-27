@@ -55,6 +55,20 @@
     background-color: aqua;
 }
 
+fieldset{
+    color: white;
+}
+
+fieldset .champs{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+fieldset .champs div input{
+    margin-right: 0.5em;
+}
+
 .close{
     width: max-content;
     height: max-content;

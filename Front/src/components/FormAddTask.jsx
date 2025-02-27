@@ -5,16 +5,23 @@ import axios from "axios"
 
 export default function FormAddTask(props) {
     const [display,setDisplay] = useState(props.display)
-    const [day,setDay] = useState("")
+    let day = []
     const [description,setDescription] = useState("")
     const [hour,setHour] = useState("") 
     const [priority,setPriority] = useState("")
+
+
 
     function handlePost() {
         axios.post("http://localhost:3000/api/setTask",{
             day: day, hour: hour, object: description, idUser: props.email,priority: priority
         }).then(res=>{ window.location.reload()})
         .catch(err=>{ console.log("Error: " + err)})
+    }
+
+    function getDays(e) {
+        day.push(e.target.value)
+        console.log(day.toString())
     }
 
 
@@ -37,18 +44,72 @@ export default function FormAddTask(props) {
             <textarea name="task" id="task" placeholder="Task description" rows={5} required
                 onChange={(e)=>{setDescription(e.target.value)}}
             ></textarea>
-            <select name="day" id="day" 
-                value={day} onChange={(e)=>setDay(e.target.value)} required
-            >
-                <option value="" disabled hidden>Select a day</option>
-                <option value="MONDAY">MONDAY</option>
-                <option value="TUESDAY">TUESDAY</option>
-                <option value="WEDNESDAY">WEDNESDAY</option>
-                <option value="THURSDAY">THURSDAY</option>
-                <option value="FRIDAY">FRIDAY</option>
-                <option value="SATURDAY">SATURDAY</option>
-                <option value="SUNDAY">SUNDAY</option>
-            </select>
+            
+            <fieldset 
+                onChange={(e)=>{
+                    getDays(e)
+                }
+            }>
+                <legend>Days :</legend>
+                <div className="champs">
+                    <div>
+                        <input type="checkbox" id="1" name="Day" value="LUNDI" 
+                            
+                        />
+                        <label htmlFor="1">LUNDI</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="2" name="Day" value="MARDI" 
+                            onChecked={(e)=>{
+                                console.log(e)
+                            }}
+                        />
+                        <label htmlFor="2">MARDI</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="3" name="Day" value="MERCREDI" 
+                            onChecked={(e)=>{
+                                console.log(e)
+                            }}
+                        />
+                        <label htmlFor="3">MERCREDI</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="4" name="Day" value="JEUDI" 
+                            onChecked={(e)=>{
+                                console.log(e)
+                            }}
+                        />
+                        <label htmlFor="4">JEUDI</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="5" name="Day" value="VENDREDI" 
+                            onChecked={(e)=>{
+                                console.log(e)
+                            }}
+                        />
+                        <label htmlFor="5">VENDREDI</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="6" name="Day" value="SAMEDI" 
+                            onChecked={(e)=>{
+                                console.log(e)
+                            }}
+                        />
+                        <label htmlFor="6">SAMEDI</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="7" name="Day" value="DIMANCHE" 
+                            onChecked={(e)=>{
+                                console.log(e)
+                            }}
+                        />
+                        <label htmlFor="7">DIMANCHE</label>
+                    </div>
+
+                </div>
+            </fieldset>
+
             <select name="priority" id="priority" required
                 value={priority} onChange={(e)=>{ setPriority(e.target.value) }}       
             >

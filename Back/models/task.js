@@ -1,7 +1,3 @@
-const dayOFweek = [
-    "MONDAY","TUESDAY","WEDNESDAY","THURSDAY",
-    "FRIDAY","SATURDAY","SUNDAY"    
-]
 
 module.exports = (sequelize, DataTypes)=>{
 	return sequelize.define('task',{
@@ -12,14 +8,7 @@ module.exports = (sequelize, DataTypes)=>{
         },
         day:{
             type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                isTypesValid(value){
-                    if(!dayOFweek.includes(value.toUpperCase())){
-                        throw new Error(`Le jour ${value} n'est pas valide.Il doit appartenir a la liste suivante :${dayOFweek}`)
-                    }
-                }
-            }
+            allowNull: false
         },
         hour:{
             type: DataTypes.TIME,

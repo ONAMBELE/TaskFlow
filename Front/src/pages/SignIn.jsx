@@ -8,6 +8,7 @@ export default function SignIn() {
     const [surname,setSurName] = useState("")
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
+    const [err,setErr] = useState("")
 
     async function singIn() {
         await axios.post("http://localhost:3000/api/setuser",{
@@ -21,7 +22,8 @@ export default function SignIn() {
             window.location.href = "http://localhost:5173/login"
         })
         .catch(error=>{
-            console.log("Error: " + error)
+            console.log(error)
+            setErr(error.response.data.message)
         })
 
 
@@ -58,9 +60,7 @@ export default function SignIn() {
                     }} 
                 required/>
                 <div className="errors">
-                    {/* Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit.
-                    Expedita, facilis! */}
+                    {err}
                 </div>
                 <input type="submit" value="Sign In" className="submit" onClick={singIn}/>
                 <div className="already">
