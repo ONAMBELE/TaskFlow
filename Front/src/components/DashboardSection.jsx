@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import FormAddTask from "./FormAddTask"
 import "./dashboardSection.css"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import Header from "./Header"
 import PopUpPrintTasks from "./popUpPrintTasks"
 
@@ -15,16 +15,17 @@ export default function DashboardSection() {
     let taskList = []
 
 
-    function findIndex(value,daysOFweek) {
+    function findIndex(value,_day,daysOFweek) {
         let dayIndex,hourIndex=0;
-        dayIndex = daysOFweek.indexOf(value.day)
-
+        console.log([value,_day,daysOFweek])
+        dayIndex = daysOFweek.indexOf(_day)
         for (let i = 0; i < 24; i+=2) {
             if (value.hour.split(":")[0] < i+2) {
                 break;
             }
             hourIndex+=1;
         } 
+        console.log([dayIndex,hourIndex])
         return [dayIndex,hourIndex]
     }
 
@@ -71,34 +72,41 @@ export default function DashboardSection() {
         const daysOFweek = [ "MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY" ]
         setEmail(localStorage.getItem("email"))
 
-        setTimeout(() => {
+        //setTimeout(() => {
             if (email !== null) {
                 axios.get(`http://localhost:3000/api/getTask?idUser=${email}`)
                 .then(task=>{
                     let tasks = task.data.data
                     let dayIndex,hourIndex
                     tasks.map((value, index)=>{
-                        [dayIndex,hourIndex] = findIndex(value,daysOFweek)
-                        table.childNodes[hourIndex].childNodes[dayIndex+1].innerText = value.object
-                        table.childNodes[hourIndex].childNodes[dayIndex+1].setAttribute("id",value.id)
-                        table.childNodes[hourIndex].childNodes[dayIndex+1].setAttribute("day",value.day)
-                        table.childNodes[hourIndex].childNodes[dayIndex+1].setAttribute("hour",value.hour)
-                        if (value.priority === "green") {
-                            table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority1)`
-                        }
-                        if (value.priority === "yellow") {
-                            table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority2)`
-                        }
-                        if (value.priority === "red") {
-                            table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority3)`
-                        }
+                        //let value = val;
+                        let days = value.day.split(",")
+                        console.log(days)
+                        //for (let i = 0; i < days.length; i++) {
+                            console.log([value,days[0],daysOFweek])                            
+                            [dayIndex,hourIndex] = findIndex(value,days[0],daysOFweek)
+                            console.log(dayIndex,hourIndex)
+                            table.childNodes[hourIndex].childNodes[dayIndex+1].innerText = value.object
+                            table.childNodes[hourIndex].childNodes[dayIndex+1].setAttribute("id",value.id+"-"+days[0])
+                            table.childNodes[hourIndex].childNodes[dayIndex+1].setAttribute("day",days[0])
+                            table.childNodes[hourIndex].childNodes[dayIndex+1].setAttribute("hour",value.hour)
+                            if (value.priority === "green") {
+                                table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority1)`
+                            }
+                            if (value.priority === "yellow") {
+                                table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority2)`
+                            }
+                            if (value.priority === "red") {
+                                table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority3)`
+                            }
+                        //}    
                     })
                 })
-                .catch(error=>{
-                    console.error("Error: " + error)
+                .catch(error=>{                    
+                    console.log(error)
                 })
             }
-        }, 750);
+        //}, 750);
 
     })
 

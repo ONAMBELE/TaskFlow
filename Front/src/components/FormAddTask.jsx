@@ -14,14 +14,13 @@ export default function FormAddTask(props) {
 
     function handlePost() {
         axios.post("http://localhost:3000/api/setTask",{
-            day: day, hour: hour, object: description, idUser: props.email,priority: priority
+            day: day.toString(), hour: hour, object: description, idUser: props.email,priority: priority
         }).then(res=>{ window.location.reload()})
         .catch(err=>{ console.log("Error: " + err)})
     }
 
     function getDays(e) {
         day.push(e.target.value)
-        console.log(day.toString())
     }
 
 
@@ -56,7 +55,7 @@ export default function FormAddTask(props) {
                         <input type="checkbox" id="1" name="Day" value="LUNDI" 
                             
                         />
-                        <label htmlFor="1">LUNDI</label>
+                        <label htmlFor="1">MONDAY</label>
                     </div>
                     <div>
                         <input type="checkbox" id="2" name="Day" value="MARDI" 
@@ -64,7 +63,7 @@ export default function FormAddTask(props) {
                                 console.log(e)
                             }}
                         />
-                        <label htmlFor="2">MARDI</label>
+                        <label htmlFor="2">TUESDAY</label>
                     </div>
                     <div>
                         <input type="checkbox" id="3" name="Day" value="MERCREDI" 
@@ -72,7 +71,7 @@ export default function FormAddTask(props) {
                                 console.log(e)
                             }}
                         />
-                        <label htmlFor="3">MERCREDI</label>
+                        <label htmlFor="3">WEDNESDAY</label>
                     </div>
                     <div>
                         <input type="checkbox" id="4" name="Day" value="JEUDI" 
@@ -80,7 +79,7 @@ export default function FormAddTask(props) {
                                 console.log(e)
                             }}
                         />
-                        <label htmlFor="4">JEUDI</label>
+                        <label htmlFor="4">THURSDAY</label>
                     </div>
                     <div>
                         <input type="checkbox" id="5" name="Day" value="VENDREDI" 
@@ -88,7 +87,7 @@ export default function FormAddTask(props) {
                                 console.log(e)
                             }}
                         />
-                        <label htmlFor="5">VENDREDI</label>
+                        <label htmlFor="5">FRIDAY</label>
                     </div>
                     <div>
                         <input type="checkbox" id="6" name="Day" value="SAMEDI" 
@@ -96,7 +95,7 @@ export default function FormAddTask(props) {
                                 console.log(e)
                             }}
                         />
-                        <label htmlFor="6">SAMEDI</label>
+                        <label htmlFor="6">SATURDAY</label>
                     </div>
                     <div>
                         <input type="checkbox" id="7" name="Day" value="DIMANCHE" 
@@ -104,7 +103,7 @@ export default function FormAddTask(props) {
                                 console.log(e)
                             }}
                         />
-                        <label htmlFor="7">DIMANCHE</label>
+                        <label htmlFor="7">SUNDAY</label>
                     </div>
 
                 </div>
