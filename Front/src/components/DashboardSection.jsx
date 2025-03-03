@@ -48,7 +48,8 @@ export default function DashboardSection() {
                 id: td.getAttribute("id"),
                 description : td.innerText,
                 day: td.getAttribute("day"),
-                hour: td.getAttribute("hour")
+                hour: td.getAttribute("hour"),
+                priority: td.getAttribute("priority")
             })
             table.forEach(task=>{
                 if (task.getAttribute("day") !== null && task.getAttribute("id") !== e.target.id) {
@@ -56,7 +57,8 @@ export default function DashboardSection() {
                         id: task.getAttribute("id"),
                         description : task.innerText,
                         day: task.getAttribute("day"),
-                        hour: task.getAttribute("hour")
+                        hour: task.getAttribute("hour"),
+                        priority: task.getAttribute("priority")
                     })
                 }
             })
@@ -79,12 +81,12 @@ export default function DashboardSection() {
                     let tasks = task.data.data
                     let indexes = []
                     tasks.map((value, index)=>{
-
                         indexes = findIndex(value,daysOFweek)
                         table.childNodes[indexes[1]].childNodes[indexes[0]+1].innerHTML = `<span>${value.object}</span>`
                         table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("id",value.id)
                         table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("day",value.day)
                         table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("hour",value.hour)
+                        table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("priority",value.priority)
                         if (value.priority === "green") {
                             table.childNodes[indexes[1]].childNodes[indexes[0]+1].style.backgroundColor = `var(--priority1)`
                         }

@@ -1,8 +1,14 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import "./popUpPrintTasks.css"
-
+import axios from "axios"
+import FormAddTask from "./FormAddTask"
 
 export default function PopUpPrintTasks(props) {
+    const email = localStorage.getItem("email")
+    const [formTask,setFromTask] = useState("")
+
+
+
     useEffect(()=>{
         const nextBtn = document.querySelector(".next")
         const prevBtn = document.querySelector(".previous")
@@ -34,6 +40,11 @@ export default function PopUpPrintTasks(props) {
 
     return (
         <div className="popUpPrintTasks">
+
+            {
+                formTask
+            }
+
             <img src="/back.svg" alt="back" className="previous"/>
             <img src="/forward.svg" alt="forward" className="next"/>
             <div className="content">
@@ -45,6 +56,19 @@ export default function PopUpPrintTasks(props) {
                             description={value.description}
                             day={value.day}
                             hour={value.hour}
+                            priority={value.priority}
+
+                            onUpdate={()=>{
+                                setFromTask(
+                                    <FormAddTask display="flex" email={email} 
+                                        id={value.id}
+                                        description={value.description}
+                                        day={value.day}
+                                        hour={value.hour}
+                                        priority={value.priority}
+                                    />
+                                )
+                            }}
                         />
                     })
                     
@@ -56,14 +80,45 @@ export default function PopUpPrintTasks(props) {
 }
 
 function Task(props) {
+    const [display,setDisplay] = useState("inline-block")
+
+    function delTask() {
+        
+        setTimeout(() => {
+            axios.delete(`http://localhost:3000/api/delTask?id=${props.id}`)
+            .then(del=>{
+                setDisplay("none")
+            })
+            .catch(error=>{
+                console.log("Error: ")
+                console.log(error)
+            })
+        }, 1000);
+    }
+
+
     return (
         <div className="task" id={props.id} 
-            onClick={(e)=>{
-                console.log(props.id)
+            style={{
+                display: display
             }}
         >
+            <img src="/edit.svg" alt="edit" className="edit"
+                onClick={()=>{
+                    props.onUpdate?.()
+                }}
+            />
+            <img src="delete.svg" alt="delete" className="delete"
+                onClick={(e)=>{
+                    delTask()
+                }}
+            />
             <h5>Description</h5>
-            <p className="description">
+            <p className="description" 
+                style={{
+                    color: props.priority
+                }}
+            >
                 {props.description}
             </p>
             <h5>Days</h5>

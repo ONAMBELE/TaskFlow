@@ -6,10 +6,9 @@
     padding: 1em;
     background-color: transparent;
     height: 20em;
-    overflow: hidden;
 }
 
-.popUpPrintTasks img{
+.popUpPrintTasks .previous,.next{
     position: absolute;
     width: 4em;
     height: 4em;
@@ -54,6 +53,7 @@
 }
 
 .popUpPrintTasks .task{
+
     display: inline-block;
     border: 0;
     width: 14em;
@@ -63,6 +63,7 @@
     margin: 0.5em;
     box-shadow: 1px 1px 12px rgba(17, 17, 17, 0.644);
     height: 18em;
+    position: relative;
 }
 
 .popUpPrintTasks .task h5{
@@ -94,6 +95,21 @@
 .popUpPrintTasks .task .description{
     height: 30%;
     overflow-y: auto;
+}
+
+.popUpPrintTasks .task img{
+    position: absolute;
+    top: 0.25em;
+    right: 0.5em;
+    transition: .1s ease-in;
+}
+
+.popUpPrintTasks .task img:hover{
+    transform: scale(1.1);
+}
+
+.popUpPrintTasks .task .edit{
+    right: 2.5em;
 }
 
 @media screen and (max-width: 652px){

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./formAddTask.css"
 import axios from "axios"
 
@@ -6,9 +6,10 @@ import axios from "axios"
 export default function FormAddTask(props) {
     const [display,setDisplay] = useState(props.display)
     let days = []
-    const [description,setDescription] = useState("")
-    const [hour,setHour] = useState("") 
-    const [priority,setPriority] = useState("")
+    const [description,setDescription] = useState(props.description ?  props.description :  "")
+    const [hour,setHour] = useState(props.hour ?  props.hour :  "") 
+    const [priority,setPriority] = useState(props.priority ?  props.priority :  "")
+    const daysOFweek = [ "MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY" ]
 
 
     function handlePost() {
@@ -17,6 +18,20 @@ export default function FormAddTask(props) {
         .forEach(day=>{
             console.log(day)
             axios.post("http://localhost:3000/api/setTask",{
+                day: day, hour: hour, object: description, idUser: props.email,priority: priority
+            })
+            .catch(err=>{ console.log("Error: " + err)})
+        })
+        localStorage.removeItem("days")
+        window.location.reload()
+    }
+
+    function handleUpdate() {
+        
+        localStorage.getItem("days").split(",")
+        .forEach(day=>{
+            console.log(day)
+            axios.put(`http://localhost:3000/api/updateTask?id=${props.id}`,{
                 day: day, hour: hour, object: description, idUser: props.email,priority: priority
             })
             .catch(err=>{ console.log("Error: " + err)})
@@ -36,11 +51,23 @@ export default function FormAddTask(props) {
         localStorage.setItem("days",days.toString())
     }
 
+    useEffect(()=>{
+        if (props.day) {
+            let index = daysOFweek.indexOf(props.day)+1
+            document.getElementById(`${index}`).checked = true
+            console.log(document.getElementById(`${index}`))
+        }
+        
+    })
 
     return (
         <form action="" className="FormAddTask"
             onSubmit={(e)=>{ e.preventDefault()
-                handlePost()
+                if (props.id) {
+                    handleUpdate()
+                } else {
+                    handlePost()
+                }
             }}
             style={{ display: `${display}` }}
         >
@@ -55,7 +82,7 @@ export default function FormAddTask(props) {
             <h3>NEW TASK</h3>
             <textarea name="task" id="task" placeholder="Task description" rows={5} required
                 onChange={(e)=>{setDescription(e.target.value)}}
-            ></textarea>
+            >{description}</textarea>
             
             <fieldset 
                 onChange={(e)=>{
@@ -107,7 +134,7 @@ export default function FormAddTask(props) {
                 <option value="red">Elevée(Rouge)</option>
             </select>
             <input type="time" name="time" id="time" placeholder="Heure (Au format heure:minute)" required 
-                onChange={(e)=>{ setHour(e.target.value) }}
+                value={hour} onChange={(e)=>{ setHour(e.target.value) }}
             />
             <button className="addBtn">ADD</button>
         </form>
