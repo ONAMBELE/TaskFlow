@@ -80,7 +80,7 @@
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
-    width: 12.5%;
+    max-width: 12.5%;
     overflow-y: hidden;
 }
 
@@ -94,6 +94,19 @@
     color: rgb(0, 0, 0);
 }
 
+.DashboardSection table tbody td span{
+    padding: 2px;
+    user-select: none;
+    line-height: 16px;
+    height: max-content;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 .DashboardSection table .hour{
     color: black;

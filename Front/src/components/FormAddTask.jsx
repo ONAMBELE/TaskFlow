@@ -5,22 +5,35 @@ import axios from "axios"
 
 export default function FormAddTask(props) {
     const [display,setDisplay] = useState(props.display)
-    let day = []
+    let days = []
     const [description,setDescription] = useState("")
     const [hour,setHour] = useState("") 
     const [priority,setPriority] = useState("")
 
 
-
     function handlePost() {
-        axios.post("http://localhost:3000/api/setTask",{
-            day: day.toString(), hour: hour, object: description, idUser: props.email,priority: priority
-        }).then(res=>{ window.location.reload()})
-        .catch(err=>{ console.log("Error: " + err)})
+        
+        localStorage.getItem("days").split(",")
+        .forEach(day=>{
+            console.log(day)
+            axios.post("http://localhost:3000/api/setTask",{
+                day: day, hour: hour, object: description, idUser: props.email,priority: priority
+            })
+            .catch(err=>{ console.log("Error: " + err)})
+        })
+        localStorage.removeItem("days")
+        window.location.reload()
     }
 
     function getDays(e) {
-        day.push(e.target.value)
+        let index = days.indexOf(e.target.value)
+        if (index === -1) {
+            days.push(e.target.value)            
+        }
+        else{
+            days.splice(index,1)
+        }
+        localStorage.setItem("days",days.toString())
     }
 
 
@@ -52,57 +65,33 @@ export default function FormAddTask(props) {
                 <legend>Days :</legend>
                 <div className="champs">
                     <div>
-                        <input type="checkbox" id="1" name="Day" value="LUNDI" 
+                        <input type="checkbox" id="1" name="Day" value="MONDAY" 
                             
                         />
                         <label htmlFor="1">MONDAY</label>
                     </div>
                     <div>
-                        <input type="checkbox" id="2" name="Day" value="MARDI" 
-                            onChecked={(e)=>{
-                                console.log(e)
-                            }}
-                        />
+                        <input type="checkbox" id="2" name="Day" value="TUESDAY"/>
                         <label htmlFor="2">TUESDAY</label>
                     </div>
                     <div>
-                        <input type="checkbox" id="3" name="Day" value="MERCREDI" 
-                            onChecked={(e)=>{
-                                console.log(e)
-                            }}
-                        />
+                        <input type="checkbox" id="3" name="Day" value="WEDNESDAY"/>
                         <label htmlFor="3">WEDNESDAY</label>
                     </div>
                     <div>
-                        <input type="checkbox" id="4" name="Day" value="JEUDI" 
-                            onChecked={(e)=>{
-                                console.log(e)
-                            }}
-                        />
+                        <input type="checkbox" id="4" name="Day" value="THURSDAY" />
                         <label htmlFor="4">THURSDAY</label>
                     </div>
                     <div>
-                        <input type="checkbox" id="5" name="Day" value="VENDREDI" 
-                            onChecked={(e)=>{
-                                console.log(e)
-                            }}
-                        />
+                        <input type="checkbox" id="5" name="Day" value="FRIDAY"/>
                         <label htmlFor="5">FRIDAY</label>
                     </div>
                     <div>
-                        <input type="checkbox" id="6" name="Day" value="SAMEDI" 
-                            onChecked={(e)=>{
-                                console.log(e)
-                            }}
-                        />
+                        <input type="checkbox" id="6" name="Day" value="SATURDAY"/>
                         <label htmlFor="6">SATURDAY</label>
                     </div>
                     <div>
-                        <input type="checkbox" id="7" name="Day" value="DIMANCHE" 
-                            onChecked={(e)=>{
-                                console.log(e)
-                            }}
-                        />
+                        <input type="checkbox" id="7" name="Day" value="SUNDAY"/>
                         <label htmlFor="7">SUNDAY</label>
                     </div>
 

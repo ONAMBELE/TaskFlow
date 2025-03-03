@@ -15,21 +15,19 @@ export default function DashboardSection() {
     let taskList = []
 
 
-    function findIndex(value,_day,daysOFweek) {
+    function findIndex(value,daysOFweek) {
         let dayIndex,hourIndex=0;
-        console.log([value,_day,daysOFweek])
-        dayIndex = daysOFweek.indexOf(_day)
+        dayIndex = daysOFweek.indexOf(value.day)
         for (let i = 0; i < 24; i+=2) {
             if (value.hour.split(":")[0] < i+2) {
                 break;
             }
             hourIndex+=1;
         } 
-        console.log([dayIndex,hourIndex])
         return [dayIndex,hourIndex]
     }
 
-    function printInstructions(e) {
+    function printInstructions() {
         setClass(
             <p className="message ">Double cliquer sur la tache pour plus d'options</p>
         )
@@ -47,6 +45,7 @@ export default function DashboardSection() {
         } 
         else if(td.getAttribute("class") === null) {
             taskList.push({
+                id: td.getAttribute("id"),
                 description : td.innerText,
                 day: td.getAttribute("day"),
                 hour: td.getAttribute("hour")
@@ -54,6 +53,7 @@ export default function DashboardSection() {
             table.forEach(task=>{
                 if (task.getAttribute("day") !== null && task.getAttribute("id") !== e.target.id) {
                     taskList.push({
+                        id: task.getAttribute("id"),
                         description : task.innerText,
                         day: task.getAttribute("day"),
                         hour: task.getAttribute("hour")
@@ -72,41 +72,36 @@ export default function DashboardSection() {
         const daysOFweek = [ "MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY" ]
         setEmail(localStorage.getItem("email"))
 
-        //setTimeout(() => {
+        setTimeout(() => {
             if (email !== null) {
                 axios.get(`http://localhost:3000/api/getTask?idUser=${email}`)
                 .then(task=>{
                     let tasks = task.data.data
-                    let dayIndex,hourIndex
+                    let indexes = []
                     tasks.map((value, index)=>{
-                        //let value = val;
-                        let days = value.day.split(",")
-                        console.log(days)
-                        //for (let i = 0; i < days.length; i++) {
-                            console.log([value,days[0],daysOFweek])                            
-                            [dayIndex,hourIndex] = findIndex(value,days[0],daysOFweek)
-                            console.log(dayIndex,hourIndex)
-                            table.childNodes[hourIndex].childNodes[dayIndex+1].innerText = value.object
-                            table.childNodes[hourIndex].childNodes[dayIndex+1].setAttribute("id",value.id+"-"+days[0])
-                            table.childNodes[hourIndex].childNodes[dayIndex+1].setAttribute("day",days[0])
-                            table.childNodes[hourIndex].childNodes[dayIndex+1].setAttribute("hour",value.hour)
-                            if (value.priority === "green") {
-                                table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority1)`
-                            }
-                            if (value.priority === "yellow") {
-                                table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority2)`
-                            }
-                            if (value.priority === "red") {
-                                table.childNodes[hourIndex].childNodes[dayIndex+1].style.backgroundColor = `var(--priority3)`
-                            }
-                        //}    
+
+                        indexes = findIndex(value,daysOFweek)
+                        table.childNodes[indexes[1]].childNodes[indexes[0]+1].innerHTML = `<span>${value.object}</span>`
+                        table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("id",value.id)
+                        table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("day",value.day)
+                        table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("hour",value.hour)
+                        if (value.priority === "green") {
+                            table.childNodes[indexes[1]].childNodes[indexes[0]+1].style.backgroundColor = `var(--priority1)`
+                        }
+                        if (value.priority === "yellow") {
+                            table.childNodes[indexes[1]].childNodes[indexes[0]+1].style.backgroundColor = `var(--priority2)`
+                        }
+                        if (value.priority === "red") {
+                            table.childNodes[indexes[1]].childNodes[indexes[0]+1].style.backgroundColor = `var(--priority3)`
+                        }
+                        
                     })
                 })
                 .catch(error=>{                    
-                    console.log(error)
+                    console.log("Error")
                 })
             }
-        //}, 750);
+        }, 750);
 
     })
 
@@ -122,7 +117,7 @@ export default function DashboardSection() {
                 popUpPrintTasks
             }           
             <table onClick={(e)=>{
-                    printInstructions(e)
+                    printInstructions()
                     setTableVisibility("0")
                     setPopUpPrintTasks("")
                 }}

@@ -9,21 +9,21 @@ export default function PopUpPrintTasks(props) {
         const content = document.querySelector(".popUpPrintTasks .content")
         
         nextBtn.addEventListener("click",(e)=>{
-            content.scrollLeft += 25
+            content.scrollLeft += 50
         })
         prevBtn.addEventListener("click",(event)=>{
-            content.scrollLeft -= 25
+            content.scrollLeft -= 50
         })
         content.addEventListener("wheel",(e)=>{
             e.preventDefault()
             if (e.deltaX > 0) {
                 content.scrollBy({
-                    left: 100,
+                    left: 150,
                     behavior: "smooth"
                 })
             } else {
                 content.scrollBy({
-                    left: -100,
+                    left: -150,
                     behavior: "smooth"
                 })   
             }
@@ -41,6 +41,7 @@ export default function PopUpPrintTasks(props) {
                     {props.taskList.map((value,index)=>{
                         return <Task 
                             key={index}
+                            id={value.id}
                             description={value.description}
                             day={value.day}
                             hour={value.hour}
@@ -56,7 +57,11 @@ export default function PopUpPrintTasks(props) {
 
 function Task(props) {
     return (
-        <div className="task">
+        <div className="task" id={props.id} 
+            onClick={(e)=>{
+                console.log(props.id)
+            }}
+        >
             <h5>Description</h5>
             <p className="description">
                 {props.description}
