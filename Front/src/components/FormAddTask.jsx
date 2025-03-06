@@ -26,7 +26,11 @@ export default function FormAddTask(props) {
                     window.location.reload()
                 }, 1000);
             })
-            .catch(err=>{ console.log("Error: " + err)})
+            .catch(err=>{ 
+                console.log("Error: ")
+                console.log(err)
+            
+            })
         })
         
     }
