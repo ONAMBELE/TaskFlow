@@ -10,7 +10,9 @@ export default function FormAddTask(props) {
     const [hour,setHour] = useState(props.hour ?  props.hour :  "") 
     const [priority,setPriority] = useState(props.priority ?  props.priority :  "")
     const daysOFweek = [ "MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY" ]
-
+    const navigate = useNavigate()
+       
+    
 
     function handlePost() {
         
@@ -23,7 +25,7 @@ export default function FormAddTask(props) {
             .then(_task=>{
                 localStorage.removeItem("days")
                 setTimeout(() => {
-                    window.location.reload()
+                    navigate("/dashboard")
                 }, 1000);
             })
             .catch(err=>{ 
@@ -47,7 +49,7 @@ export default function FormAddTask(props) {
                         console.log("CREATION")
                         localStorage.removeItem("days")
                         setTimeout(() => {
-                            window.location.reload()
+                            navigate("/dashboard")
                         }, 1000);
                     })
                     .catch(err=>{ console.log("Error: " + err)})
@@ -103,7 +105,7 @@ export default function FormAddTask(props) {
             <img className="close top"  src="/close.svg" alt="close" 
                 onClick={()=>{
                     setDisplay("none")
-                    window.location.reload()
+                    navigate("/dashboard")
                 }}
             />
             

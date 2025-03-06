@@ -9,6 +9,7 @@ export default function SignIn() {
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const [err,setErr] = useState("")
+    const navigate = useNavigate()
 
     async function singIn() {
         await axios.post("https://taskflow-back.onrender.com/api/setuser",{
@@ -19,7 +20,7 @@ export default function SignIn() {
         })
         .then(res=>{
             console.log("res: " + res)
-            window.location.href = "http://localhost:5173/login"
+            navigate("/login")
         })
         .catch(error=>{
             console.log(error)
