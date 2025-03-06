@@ -23,10 +23,10 @@ const task = taskModel(sequelize, DataTypes)
 
 
 const initBD = ()=>{
-    return sequelize.sync({force:true})
+    return sequelize.sync({force:false})
     .then(()=>{
         task.belongsTo(user,{foreignKey: 'idUser'})
-        sequelize.sync({force: true})
+        sequelize.sync({force: false})
     })
 }
 
