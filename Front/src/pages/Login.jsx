@@ -22,8 +22,8 @@ export default function Login(props) {
             }, 1000);
         })
         .catch(error=>{
-            console.log("Error: " + JSON.stringify(error))
-            setErrors("Email ou mot de passe incorrect.")
+            console.log(error)
+            setErrors(error.response.data.message)
         })
         
     }

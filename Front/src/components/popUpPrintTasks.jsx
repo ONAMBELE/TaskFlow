@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import "./popUpPrintTasks.css"
+import "./formUpdateTask.css"
 import axios from "axios"
 import FormAddTask from "./FormAddTask"
 
@@ -108,7 +109,7 @@ function Task(props) {
                     props.onUpdate?.()
                 }}
             />
-            <img src="delete.svg" alt="delete" className="delete"
+            <img src="trash-1.svg" alt="delete" className="delete"
                 onClick={(e)=>{
                     delTask()
                 }}

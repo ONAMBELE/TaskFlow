@@ -1,0 +1,41 @@
+.FormAddTask{
+    top: 5%;
+    left: 30%;
+}
+
+@media screen and (max-width: 1224px) {
+    
+    .FormAddTask{
+        top: 5%;
+        left: 20%;
+    }
+
+}
+
+
+@media screen and (max-width: 1020px) {
+    
+    .FormAddTask{
+        top: 5%;
+        left: 15%;
+    }
+
+}
+
+@media screen and (max-width: 866px) {
+    
+    .FormAddTask{
+        top: 5%;
+        left: 14%;
+    }
+
+}
+
+@media screen and (max-width: 412px) {
+    
+    .FormAddTask{
+        top: 5%;
+        left: -5%;
+    }
+
+}

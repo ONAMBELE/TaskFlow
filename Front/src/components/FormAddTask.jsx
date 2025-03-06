@@ -23,21 +23,34 @@ export default function FormAddTask(props) {
             .catch(err=>{ console.log("Error: " + err)})
         })
         localStorage.removeItem("days")
-        window.location.reload()
+        setTimeout(() => {
+            window.location.reload()
+        }, 1000);
     }
 
     function handleUpdate() {
-        
-        localStorage.getItem("days").split(",")
-        .forEach(day=>{
-            console.log(day)
-            axios.put(`http://localhost:3000/api/updateTask?id=${props.id}`,{
-                day: day, hour: hour, object: description, idUser: props.email,priority: priority
-            })
-            .catch(err=>{ console.log("Error: " + err)})
+        axios.delete(`http://localhost:3000/api/delTask?id=${props.id}`)
+            .then(del=>{
+                localStorage.getItem("days").split(",")
+                .forEach(day=>{
+                    axios.post("http://localhost:3000/api/setTask",{
+                        day: day, hour: hour, object: description, idUser: props.email,priority: priority
+                    })
+                    .then(_task=>{
+                        console.log("CREATION")
+                    })
+                    .catch(err=>{ console.log("Error: " + err)})
+                })
+            localStorage.removeItem("days")
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000);
         })
-        localStorage.removeItem("days")
-        window.location.reload()
+        .catch(error=>{
+            console.log("Error: ")
+            console.log(error)
+        })    
+        
     }
 
     function getDays(e) {
@@ -55,7 +68,15 @@ export default function FormAddTask(props) {
         if (props.day) {
             let index = daysOFweek.indexOf(props.day)+1
             document.getElementById(`${index}`).checked = true
-            console.log(document.getElementById(`${index}`))
+            days.push(props.day)
+            if (days.length > 1) {
+                days.pop()
+                console.log(days)
+            }
+            else{
+                localStorage.setItem("days",days)
+            }
+
         }
         
     })
@@ -82,7 +103,8 @@ export default function FormAddTask(props) {
             <h3>NEW TASK</h3>
             <textarea name="task" id="task" placeholder="Task description" rows={5} required
                 onChange={(e)=>{setDescription(e.target.value)}}
-            >{description}</textarea>
+                value={description}
+            ></textarea>
             
             <fieldset 
                 onChange={(e)=>{

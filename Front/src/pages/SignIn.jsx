@@ -38,25 +38,21 @@ export default function SignIn() {
                 <input type="text" name="name" id="name" placeholder="Name" 
                     onChange={(e)=>{
                         setName(e.target.value)
-                        console.log(name)
                     }} 
                 required/>
                 <input type="text" name="surname" id="surname" placeholder="Surname" 
                     onChange={(e)=>{
                         setSurName(e.target.value)
-                        console.log(surname)
                     }} 
                 required/>
                 <input type="email" name="email" id="email" placeholder="Email" 
                     onChange={(e)=>{
                         setEmail(e.target.value)
-                        console.log(email)
                     }} 
                 required/>
                 <input type="password" name="password" id="password" placeholder="Password" 
                     onChange={(e)=>{
                         setPassword(e.target.value)
-                        console.log(password)
                     }} 
                 required/>
                 <div className="errors">

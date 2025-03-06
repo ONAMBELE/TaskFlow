@@ -4,6 +4,7 @@ import "./dashboardSection.css"
 import axios, { AxiosError } from "axios"
 import Header from "./Header"
 import PopUpPrintTasks from "./popUpPrintTasks"
+import { useNavigate } from "react-router-dom"
 
 
 export default function DashboardSection() {
@@ -13,6 +14,11 @@ export default function DashboardSection() {
     const [popUpPrintTasks,setPopUpPrintTasks] = useState("")
     const [tableVisibility,setTableVisibility] = useState("0")
     let taskList = []
+    const navigate = useNavigate()
+    
+    if (!localStorage.getItem("email")) {
+        navigate("/login")   
+    }
 
 
     function findIndex(value,daysOFweek) {
