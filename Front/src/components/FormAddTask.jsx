@@ -20,12 +20,15 @@ export default function FormAddTask(props) {
             axios.post("https://taskflow-back.onrender.com/api/setTask",{
                 day: day, hour: hour, object: description, idUser: props.email,priority: priority
             })
+            .then(_task=>{
+                localStorage.removeItem("days")
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000);
+            })
             .catch(err=>{ console.log("Error: " + err)})
         })
-        localStorage.removeItem("days")
-        setTimeout(() => {
-            window.location.reload()
-        }, 1000);
+        
     }
 
     function handleUpdate() {
@@ -38,13 +41,13 @@ export default function FormAddTask(props) {
                     })
                     .then(_task=>{
                         console.log("CREATION")
+                        localStorage.removeItem("days")
+                        setTimeout(() => {
+                            window.location.reload()
+                        }, 1000);
                     })
                     .catch(err=>{ console.log("Error: " + err)})
                 })
-            localStorage.removeItem("days")
-            setTimeout(() => {
-                window.location.reload()
-            }, 1000);
         })
         .catch(error=>{
             console.log("Error: ")
