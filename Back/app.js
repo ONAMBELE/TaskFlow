@@ -27,6 +27,7 @@ app.get("/",(req,res)=>{
 
 sequelize.initBD()
 
+require("./emails/checkTasks")()
 require("./routes/user/setUser")(app)
 require("./routes/task/setTask")(app)
 require("./routes/task/getTask")(app)

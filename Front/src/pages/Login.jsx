@@ -16,13 +16,15 @@ export default function Login(props) {
         .then(res=>{
             console.log("Res: " + res.data.data.email)
             localStorage.setItem("email",res.data.data.email)
-            //props.setAccount?.(res.data.data.email)
+            const name = res.data.data.name.split(" ")[0][0]
+            const surName = res.data.data.surname.split(" ")[0][0]
+            localStorage.setItem("profile",name+surName)
             setTimeout(() => {
                 navigate("/dashboard")
             }, 1000);
         })
         .catch(error=>{
-            console.log(error)
+            //console.log(error.toString())
             setErrors(error.response.data.message)
         })
         

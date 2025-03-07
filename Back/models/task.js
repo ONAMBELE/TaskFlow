@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes)=>{
         priority: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        treated: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
 
 	})

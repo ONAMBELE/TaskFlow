@@ -21,7 +21,8 @@ module.exports = (app)=>{
                             message,
                             data: {
                                 name: _user.name,
-                                email: _user.email
+                                email: _user.email,
+                                surname: _user.surname
                             }
                         })
                     } else {
