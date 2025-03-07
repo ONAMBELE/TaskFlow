@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import "./popUpPrintTasks.css"
-import "./formUpdateTask.css"
+//import "./formUpdateTask.css"
 import axios from "axios"
 import FormAddTask from "./FormAddTask"
 
@@ -86,7 +86,7 @@ function Task(props) {
     function delTask() {
         
         setTimeout(() => {
-            axios.delete(`https://taskflow-back.onrender.com/api/delTask?id=${props.id}`)
+            axios.delete(`http://localhost:3000/api/delTask?id=${props.id}`)
             .then(del=>{
                 setDisplay("none")
             })

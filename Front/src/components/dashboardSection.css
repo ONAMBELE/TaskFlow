@@ -6,27 +6,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /*background-color: rgba(161, 161, 161, 0.137);
-    */background-color: transparent;
+    background-color: transparent;
     min-height: 100vh;
-    position: relative;
+    position: absolute;
+    top: 3.5em;
+    width: 90%;
+    margin-left: 5%;
 }
 
 .DashboardSection .message{
-    border: 1px solid rgb(144, 144, 150);
+    border: 0;
     position: fixed;
     top: 7em;
     z-index: 100;
     padding: 1em;
     border-radius: 0.5em;
-    background-color: white;
+    background-color: rgba(0, 147, 245, 0.877);
     color: yellow;
-    font-weight: 800;
+    font-weight: 700;
     filter: opacity(0.98);
     text-align: center;
     width: 20em;
-    /*transition: 1s;
-    */animation-name: disapear;
+    animation-name: disapear;
     animation-delay: 1s;
     animation-duration: 3s;
     animation-direction: normal;
@@ -47,14 +48,14 @@
     border: 0;
     outline: 0;
     position: absolute;
-    top: -2%;
+    top: -1%;
     left: -2%;
     font-size: 20px;
     padding: 0.5em 1em;
     border-radius: 2em;
-    background: linear-gradient(to right,rgb(86, 188, 247),rgb(235, 227, 247),rgb(194, 146, 241));
-    transition: .5s;
-    box-shadow: 0 0 10px rgb(34, 33, 33);
+    background: linear-gradient(to right,rgb(12, 109, 165),rgb(0, 60, 255),rgb(36, 105, 255));
+    transition: .75s;
+    box-shadow: 0 0 10px rgb(185, 185, 185);
 }
 
 .DashboardSection .add:hover{
@@ -62,42 +63,46 @@
 }
 
 .DashboardSection table{
-    position: relative;
-    border-collapse: collapse;
-    width: 60%;
-    background-color: white;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: var(--blue1);
     
 }
 
 .DashboardSection table thead{
-    background: linear-gradient(to right,rgba(252, 231, 203, 0.986),rgba(255, 122, 13, 0.815),rgba(151, 39, 146, 0.562),rgba(221, 10, 158, 0.938));
+    /*background: linear-gradient(to right,rgba(252, 231, 203, 0.986),rgba(255, 122, 13, 0.815),rgba(151, 39, 146, 0.562),rgba(221, 10, 158, 0.938));
+    */background-color: transparent;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 
 .DashboardSection table td,th{
     padding: 0.5em;
-    border: 1px solid black;
-    border-collapse: collapse;
     text-align: center;
     max-width: 12.5%;
     overflow-y: hidden;
+    box-shadow: 2px 0 5px rgb(104, 103, 103);
 }
 
-
-.DashboardSection table th{
-    color: rgb(68, 68, 68);
-}
 
 .DashboardSection table tbody td{
     position: relative;
     color: rgb(0, 0, 0);
-    
+    height: 5em;
+    transition: .5s;
+}
+
+.DashboardSection table tbody td:hover{
+   box-shadow: 0 0 10px rgb(245, 245, 245);
 }
 
 .DashboardSection table tbody td span{
-    padding: 2px;
-    user-select: none;
+    padding:0.5em; 
     line-height: 16px;
+    text-align: start;
     height: max-content;
     position: absolute;
     top: 0;
@@ -106,13 +111,24 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: rgb(255, 255, 250);
 }
 
 .DashboardSection table .hour{
-    color: black;
-    font-family: "poppins-thin";
-    width: 15%;
+    font-family: "poppins";
     text-align: center;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    width: 2em;
+}
+
+.DashboardSection table .hour:hover{
+    box-shadow: none;
+}
+
+.DashboardSection .space{
+    width: 2em;
 }
 
 .DashboardSection table tbody img{
@@ -124,10 +140,15 @@
 }
 
 
-@media  screen and (max-width:750px){
+
+@media  screen and (max-width:900px){
+
+    .DashboardSection {
+        top: 5.75em;
+    }
 
     .DashboardSection table{
-        width: 90%;
+        width: 100%;
     }
 
     .DashboardSection table .hour{
@@ -146,19 +167,16 @@
 
     }
 
-    .DashboardSection table{
-        width: 95%;
-        flex-direction: column;
+    .DashboardSection table td{
+        height: 3em;
     }
-
 
     .DashboardSection table td,th{
         padding: 0;
     }
 
     .DashboardSection table .hour{
-        width: 15%;
-        padding: 2%;
+        width: 10%;
     }
 
 }

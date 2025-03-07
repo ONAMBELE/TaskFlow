@@ -35,7 +35,7 @@ export default function DashboardSection() {
 
     function printInstructions() {
         setClass(
-            <p className="message ">Double cliquer sur la tache pour plus d'options</p>
+            <p className="message ">Double-cliquez sur la tache pour plus d'options</p>
         )
         setTimeout(() => {
             setClass("")
@@ -82,7 +82,7 @@ export default function DashboardSection() {
 
         setTimeout(() => {
             if (email !== null) {
-                axios.get(`https://taskflow-back.onrender.com/api/getTask?idUser=${email}`)
+                axios.get(`http://localhost:3000/api/getTask?idUser=${email}`)
                 .then(task=>{
                     let tasks = task.data.data
                     let indexes = []
@@ -94,13 +94,13 @@ export default function DashboardSection() {
                         table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("hour",value.hour)
                         table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("priority",value.priority)
                         if (value.priority === "green") {
-                            table.childNodes[indexes[1]].childNodes[indexes[0]+1].style.backgroundColor = `var(--priority1)`
+                            table.childNodes[indexes[1]].childNodes[indexes[0]+1].style.backgroundColor = `var(--green2)`
                         }
                         if (value.priority === "yellow") {
-                            table.childNodes[indexes[1]].childNodes[indexes[0]+1].style.backgroundColor = `var(--priority2)`
+                            table.childNodes[indexes[1]].childNodes[indexes[0]+1].style.backgroundColor = `var(--yellow2)`
                         }
                         if (value.priority === "red") {
-                            table.childNodes[indexes[1]].childNodes[indexes[0]+1].style.backgroundColor = `var(--priority3)`
+                            table.childNodes[indexes[1]].childNodes[indexes[0]+1].style.backgroundColor = `var(--red2)`
                         }
                         
                     })
@@ -136,7 +136,7 @@ export default function DashboardSection() {
 
                 <thead>
                     <tr>
-                        <td> 
+                        <td className="space"> 
                             <button className="add"
                                 onClick={()=>{ setFromTask(
                                         <FormAddTask display="flex" email={email} />
@@ -156,9 +156,7 @@ export default function DashboardSection() {
                <tbody onDoubleClick={(e)=>{printTasksDescriptions(e)}}>
                     <tr>
                         <td className="hour">00:00 - 02:00</td>
-                        <td>
-                            
-                        </td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

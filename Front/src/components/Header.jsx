@@ -6,7 +6,7 @@ export default function Header() {
     return (
         <div className="Header">
             <h1>
-                <img src="/hourglass.svg" alt="TaskFlow" />
+                <img src="/hourglass1.svg" alt="TaskFlow" />
                 <span>TaskFlow</span>
             </h1>
             {/* <div className="register">

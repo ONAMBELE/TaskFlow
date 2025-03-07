@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import "./formAddTask.css"
 import axios from "axios"
 
@@ -11,50 +10,41 @@ export default function FormAddTask(props) {
     const [hour,setHour] = useState(props.hour ?  props.hour :  "") 
     const [priority,setPriority] = useState(props.priority ?  props.priority :  "")
     const daysOFweek = [ "MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY" ]
-    const navigate = useNavigate()
-       
-    
+
 
     function handlePost() {
         
         localStorage.getItem("days").split(",")
         .forEach(day=>{
             console.log(day)
-            axios.post("https://taskflow-back.onrender.com/api/setTask",{
+            axios.post("http://localhost:3000/api/setTask",{
                 day: day, hour: hour, object: description, idUser: props.email,priority: priority
             })
-            .then(_task=>{
-                localStorage.removeItem("days")
-                setTimeout(() => {
-                    navigate("/dashboard")
-                }, 1000);
-            })
-            .catch(err=>{ 
-                console.log("Error: ")
-                console.log(err)
-            
-            })
+            .catch(err=>{ console.log("Error: " + err)})
         })
-        
+        localStorage.removeItem("days")
+        setTimeout(() => {
+            window.location.reload()
+        }, 1000);
     }
 
     function handleUpdate() {
-        axios.delete(`https://taskflow-back.onrender.com/api/delTask?id=${props.id}`)
+        axios.delete(`http://localhost:3000/api/delTask?id=${props.id}`)
             .then(del=>{
                 localStorage.getItem("days").split(",")
                 .forEach(day=>{
-                    axios.post("https://taskflow-back.onrender.com/api/setTask",{
+                    axios.post("http://localhost:3000/api/setTask",{
                         day: day, hour: hour, object: description, idUser: props.email,priority: priority
                     })
                     .then(_task=>{
                         console.log("CREATION")
-                        localStorage.removeItem("days")
-                        setTimeout(() => {
-                            navigate("/dashboard")
-                        }, 1000);
                     })
                     .catch(err=>{ console.log("Error: " + err)})
                 })
+            localStorage.removeItem("days")
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000);
         })
         .catch(error=>{
             console.log("Error: ")
@@ -106,7 +96,7 @@ export default function FormAddTask(props) {
             <img className="close top"  src="/close.svg" alt="close" 
                 onClick={()=>{
                     setDisplay("none")
-                    navigate("/dashboard")
+                    window.location.reload()
                 }}
             />
             

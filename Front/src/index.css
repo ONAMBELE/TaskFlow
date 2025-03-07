@@ -11,6 +11,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 6em 0 1em 0;
+  padding: 0 0 1em 0;
   position: relative;
 }

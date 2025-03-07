@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import "./signIn.css"
 import { NavLink } from "react-router-dom"
 import axios from "axios"
@@ -10,10 +9,9 @@ export default function SignIn() {
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const [err,setErr] = useState("")
-    const navigate = useNavigate()
 
     async function singIn() {
-        await axios.post("https://taskflow-back.onrender.com/api/setuser",{
+        await axios.post("http://localhost:3000/api/setuser",{
             name: name,
             surname: surname,
             email: email,
@@ -21,7 +19,7 @@ export default function SignIn() {
         })
         .then(res=>{
             console.log("res: " + res)
-            navigate("/login")
+            window.location.href = "http://localhost:5173/login"
         })
         .catch(error=>{
             console.log(error)

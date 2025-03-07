@@ -3,6 +3,8 @@ const morgan = require("morgan")
 const bodyParser = require("body-parser")
 const sequelize = require("./db/sequelize")
 const cors = require("cors")
+const mail = require("./emails/mailer")
+const cron = require("node-cron")
 
 const app = express()
 const PORT = 3000
@@ -17,6 +19,11 @@ app
 app.get("/",(req,res)=>{
     res.send("Hello depuis l'API.")
 })
+
+// cron.schedule("*/1 * * * *",()=> {
+//    console.log("⏳ Envoi automatique de l'email...");
+//    mail.sendEmail();
+// })
 
 sequelize.initBD()
 

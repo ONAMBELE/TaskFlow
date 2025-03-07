@@ -6,8 +6,19 @@
   --priority1: rgb(12, 245, 12);
   --priority2: rgba(255, 255, 0, 0.904);
   --priority3: rgb(248, 0, 0);
-}
 
+  --green1: #4ab34c;
+  --green2: #002e0D;
+  --red1: #ff9563;
+  --red2: #a04042;
+  --yellow1: #f8df51;
+  --yellow2: #adae70;
+  --blue1: #4e88a0;
+  --blue2: #89b1cb;
+  --grey: #707070;
+
+  background-color: var(--blue2);
+}
 
 
 *{
