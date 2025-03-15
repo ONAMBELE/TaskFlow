@@ -9,6 +9,8 @@ export default function FormAddTask(props) {
     const [description,setDescription] = useState(props.description ?  props.description :  "")
     const [hour,setHour] = useState(props.hour ?  props.hour :  "") 
     const [priority,setPriority] = useState(props.priority ?  props.priority :  "")
+    const [deadLine,setDeadLine] = useState(props.deadLine ? props.deadLine : null)
+    const [duration,setDuration] = useState(props.duration ? props.duration : "")
     const daysOFweek = [ "MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY" ]
 
 
@@ -18,7 +20,8 @@ export default function FormAddTask(props) {
         .forEach(day=>{
             console.log(day)
             axios.post("http://localhost:3000/api/setTask",{
-                day: day, hour: hour, object: description, idUser: props.email,priority: priority
+                day: day, hour: hour, object: description, idUser: props.email,
+                priority: priority, deadLine: deadLine, duration: duration
             })
             .catch(err=>{ console.log("Error: " + err)})
         })
@@ -33,24 +36,25 @@ export default function FormAddTask(props) {
             .then(del=>{
                 localStorage.getItem("days").split(",")
                 .forEach(day=>{
+                    console.log(day)
                     axios.post("http://localhost:3000/api/setTask",{
                         day: day, hour: hour, object: description, idUser: props.email,priority: priority
                     })
                     .then(_task=>{
                         console.log("CREATION")
+                        localStorage.removeItem("days")
+                        //setTimeout(() => {
+                        //  window.location.reload()
+                        //}, 1000);
                     })
                     .catch(err=>{ console.log("Error: " + err)})
                 })
-            localStorage.removeItem("days")
-            setTimeout(() => {
-                window.location.reload()
-            }, 1000);
+            
         })
         .catch(error=>{
             console.log("Error: ")
             console.log(error)
         })    
-        
     }
 
     function getDays(e) {
@@ -158,6 +162,20 @@ export default function FormAddTask(props) {
             <input type="time" name="time" id="time" placeholder="Heure (Au format heure:minute)" required 
                 value={hour} onChange={(e)=>{ setHour(e.target.value) }}
             />
+            <select name="duration" id="duration" required
+                value={duration} onChange={(e)=>{ setDuration(e.target.value) }}       
+            >
+                <option value="" disabled hidden>Durée</option>
+                <option value="1">1H</option>
+                <option value="2">2H</option>
+                <option value="3">3H</option>
+                <option value="4">4H</option>
+            </select>
+
+            <input type="date" name="date" id="date" 
+                value={deadLine} onChange={(e)=>{setDeadLine(e.target.value)}}
+            />
+
             <button className="addBtn">ADD</button>
         </form>
     )

@@ -9,6 +9,8 @@ const cron = require("node-cron")
 const app = express()
 const PORT = 3000
 
+const manageTask = require("./emails/checkTasks")
+
 app
     .use(bodyParser.json())
     .use(express.urlencoded({ extended:true }))
@@ -20,14 +22,15 @@ app.get("/",(req,res)=>{
     res.send("Hello depuis l'API.")
 })
 
-// cron.schedule("*/1 * * * *",()=> {
-//    console.log("⏳ Envoi automatique de l'email...");
-//    mail.sendEmail();
-// })
+cron.schedule("*/30 * * * *",()=> {
+    console.log("⏳ Attente avant l'envoi...");
+    manageTask.check()
+   console.log("⏳ Envoi automatique de l'email...");
+
+})
 
 sequelize.initBD()
 
-require("./emails/checkTasks")()
 require("./routes/user/setUser")(app)
 require("./routes/task/setTask")(app)
 require("./routes/task/getTask")(app)

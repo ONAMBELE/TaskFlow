@@ -5,7 +5,6 @@ module.exports = (app)=>{
 
     app.get("/api/getuser",(req,res)=>{
 
-        console.log(req.query)
         user.findByPk(req.query.email)
         .then(_user=>{
             if (_user === null) {

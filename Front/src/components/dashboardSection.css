@@ -17,6 +17,7 @@
 .DashboardSection .message{
     border: 0;
     position: fixed;
+    user-select: none;
     top: 7em;
     z-index: 100;
     padding: 1em;

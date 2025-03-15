@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import "./popUpPrintTasks.css"
-//import "./formUpdateTask.css"
 import axios from "axios"
 import FormAddTask from "./FormAddTask"
 
@@ -45,7 +44,6 @@ export default function PopUpPrintTasks(props) {
             {
                 formTask
             }
-
             <img src="/back.svg" alt="back" className="previous"/>
             <img src="/forward.svg" alt="forward" className="next"/>
             <div className="content">
@@ -58,6 +56,9 @@ export default function PopUpPrintTasks(props) {
                             day={value.day}
                             hour={value.hour}
                             priority={value.priority}
+                            deadLine={value.deadLine}
+                            duration={value.duration}
+
 
                             onUpdate={()=>{
                                 setFromTask(
@@ -67,6 +68,8 @@ export default function PopUpPrintTasks(props) {
                                         day={value.day}
                                         hour={value.hour}
                                         priority={value.priority}
+                                        deadLine={value.deadLine}
+                                        duration={value.duration}
                                     />
                                 )
                             }}
@@ -126,8 +129,18 @@ function Task(props) {
             <ul className="days">
                 {props.day}
             </ul>
-            <h5>Hour</h5>
-            <p>{props.hour}</p>
+            <div className="time">
+                <span>
+                    <h5>Hour: </h5>
+                    <p>{props.hour}</p>
+                </span>
+                <span>
+                    <h5>Duration: </h5>
+                    <p>{props.duration}H</p>
+                </span>
+            </div>
+            <h5>DeadLine: </h5>
+            <p>{props.deadLine!=="null" ? props.deadLine : ("Aucune deadline")}</p>
         </div>
     )
 }

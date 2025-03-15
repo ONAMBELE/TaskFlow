@@ -13,6 +13,7 @@ export default function DashboardSection() {
     const [_class,setClass] = useState("")
     const [popUpPrintTasks,setPopUpPrintTasks] = useState("")
     const [tableVisibility,setTableVisibility] = useState("0")
+    
     let taskList = []
     const navigate = useNavigate()
     
@@ -55,7 +56,9 @@ export default function DashboardSection() {
                 description : td.innerText,
                 day: td.getAttribute("day"),
                 hour: td.getAttribute("hour"),
-                priority: td.getAttribute("priority")
+                priority: td.getAttribute("priority"),
+                deadLine: td.getAttribute("deadLine"),
+                duration: td.getAttribute("duration")
             })
             table.forEach(task=>{
                 if (task.getAttribute("day") !== null && task.getAttribute("id") !== e.target.id) {
@@ -64,7 +67,9 @@ export default function DashboardSection() {
                         description : task.innerText,
                         day: task.getAttribute("day"),
                         hour: task.getAttribute("hour"),
-                        priority: task.getAttribute("priority")
+                        priority: task.getAttribute("priority"),
+                        deadLine: task.getAttribute("deadLine"),
+                        duration: task.getAttribute("duration")
                     })
                 }
             })
@@ -93,6 +98,9 @@ export default function DashboardSection() {
                         table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("day",value.day)
                         table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("hour",value.hour)
                         table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("priority",value.priority)
+                        table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("deadLine",value.deadLine)
+                        table.childNodes[indexes[1]].childNodes[indexes[0]+1].setAttribute("duration",value.duration)
+
                         if (value.priority === "green") {
                             table.childNodes[indexes[1]].childNodes[indexes[0]+1].style.backgroundColor = `var(--green2)`
                         }
@@ -105,8 +113,11 @@ export default function DashboardSection() {
                         
                     })
                 })
-                .catch(error=>{                    
-                    console.log("Error")
+                .catch(error=>{
+                    if (error.response.data.message !== "Aucune tache pour l'utilisateur ") {
+                        console.log("Error: ")
+                        console.log(error)
+                    }
                 })
             }
         }, 750);
@@ -114,7 +125,6 @@ export default function DashboardSection() {
     })
 
     
-
     return (
 
         <div className="DashboardSection">

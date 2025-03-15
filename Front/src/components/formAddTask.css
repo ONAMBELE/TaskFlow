@@ -33,14 +33,14 @@
 .FormAddTask input,select{
     border: 0;
     outline: 2;
-    background-color: rgb(87, 84, 84);
+    background-color: rgb(83, 83, 83);
     border-radius: 5px;
     padding: 0.5em 0 0.5em 1em;
     margin-bottom: 0.5em
 }
 
 .FormAddTask input{
-    margin-bottom: 2em;
+    margin-bottom: 0.5em;
 }
 
 .FormAddTask .addBtn{
@@ -52,7 +52,8 @@
     margin-left: 12.5%;
     border-radius: 5px;
     font-size: 15px;
-    background-color: aqua;
+    background-color: rgb(5, 95, 95);
+    margin-top: 0.5em;
 }
 
 fieldset{
@@ -63,9 +64,10 @@ fieldset{
 fieldset .champs{
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr  1fr;
+    grid-template-rows: 2em 2em 2em 1em;
     font-weight: 800;
-
+    height: max-content;
 }
 
 fieldset .champs div input{
@@ -80,7 +82,7 @@ fieldset .champs div input{
     right: 0;
     width: 1.5em;
     height: 1.5em;
-    background-color: red;
+    background-color: rgb(255, 0, 0);
     border-radius: 5px;
 }
 

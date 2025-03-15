@@ -23,8 +23,15 @@ module.exports = (sequelize, DataTypes)=>{
             allowNull: false
         },
         treated: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
+            type: DataTypes.STRING,
+            defaultValue: "false"
+        },
+        deadLine:{
+            type: DataTypes.DATEONLY
+        },
+        duration:{
+            type: DataTypes.INTEGER,
+            defaultValue: 2
         }
 
 	})

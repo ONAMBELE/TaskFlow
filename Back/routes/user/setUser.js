@@ -21,7 +21,6 @@ module.exports = (app)=>{
 				if(error instanceof UniqueConstraintError){
 					return res.status(400).json({message: error.message, data: error})
 				}
-				console.log("Error: " + error)
 				const message = `L'utilisateur ${req.body.nom} n'a pas pu etre ajouté. Rééssayez dans quelques instants.`
 				res.status(500).json({message,data: error})
 			})

@@ -91,7 +91,7 @@
     flex-wrap: wrap;
     padding-left: 1em;
     gap: 5px;
-    height: 30%;
+    height: 15%;
 }
 
 .popUpPrintTasks .task .description{
@@ -112,6 +112,34 @@
 
 .popUpPrintTasks .task .edit{
     right: 2.5em;
+}
+
+.popUpPrintTasks .task .time{
+    display: flex;
+    justify-content: space-between;
+}
+
+.popUpPrintTasks .task .time span{
+    width: 45%;
+    display: grid;
+    grid-template-columns: 1fr 0.5fr 1fr 0.5fr;
+    align-items: center;
+}
+
+.popUpPrintTasks .task .time span *{
+    padding: 0;
+    margin: 0;
+}
+
+.popUpPrintTasks .task .time span:first-child{
+    width: 52%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.popUpPrintTasks .task .time span:last-child{
+    display: flex;
+    justify-content: space-between;
 }
 
 @media screen and (max-width: 652px){

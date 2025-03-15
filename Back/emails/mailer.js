@@ -10,15 +10,16 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const sendEmail = async ()=>{
+const sendEmail = async (email,subject,message,html)=>{
 
     try{
+        console.log("Initialisation avant l'envoie.")
         let info = await transporter.sendMail({
             from: '"TaskFlow" konibryan4@gmail.com',
-            to: "bryan.koni@facsciences-uy1.cm",
-            subject: "Teste de notifications automatiques",
-            text: "Ceci est un email envoyé automatiquement.",
-            html: "<b>📧 Ceci est un email envoyé automatiquement avec nodeMailer.</b>"
+            to: email,
+            subject: subject,
+            text: message,
+            html: `<b>📧 ${html}</b>`
         });
         console.log("📧 Email envoyé : ", info.response);
     } catch (error) {
