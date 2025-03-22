@@ -19,7 +19,7 @@ export default function FormAddTask(props) {
         localStorage.getItem("days").split(",")
         .forEach(day=>{
             console.log(day)
-            axios.post("http://localhost:3000/api/setTask",{
+            axios.post("https://taskflow-back.onrender.com/api/setTask",{
                 day: day, hour: hour, object: description, idUser: props.email,
                 priority: priority, deadLine: deadLine, duration: duration
             })
@@ -32,12 +32,12 @@ export default function FormAddTask(props) {
     }
 
     function handleUpdate() {
-        axios.delete(`http://localhost:3000/api/delTask?id=${props.id}`)
+        axios.delete(`https://taskflow-back.onrender.com/api/delTask?id=${props.id}`)
             .then(del=>{
                 localStorage.getItem("days").split(",")
                 .forEach(day=>{
                     console.log(day)
-                    axios.post("http://localhost:3000/api/setTask",{
+                    axios.post("https://taskflow-back.onrender.com/api/setTask",{
                         day: day, hour: hour, object: description, idUser: props.email,priority: priority
                     })
                     .then(_task=>{

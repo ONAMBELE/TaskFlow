@@ -10,7 +10,7 @@ export default function Profile(){
     const navigate = useNavigate()
 
 
-    axios.get(`http://localhost:3000/api/getprofile?email=${email}`)
+    axios.get(`https://taskflow-back.onrender.com/api/getprofile?email=${email}`)
     .then(user=>{
         setName(user.data.data.name)
         setSurName(user.data.data.surname)
@@ -20,7 +20,7 @@ export default function Profile(){
     })
 
     function delAccount() {
-        axios.delete(`http://localhost:3000/api/delUser?email=${email}`)
+        axios.delete(`https://taskflow-back.onrender.com/api/delUser?email=${email}`)
         .then(succes=>{
             localStorage.removeItem("email")
             localStorage.removeItem("profile")

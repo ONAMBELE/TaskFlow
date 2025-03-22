@@ -89,7 +89,7 @@ function Task(props) {
     function delTask() {
         
         setTimeout(() => {
-            axios.delete(`http://localhost:3000/api/delTask?id=${props.id}`)
+            axios.delete(`https://taskflow-back.onrender.com/api/delTask?id=${props.id}`)
             .then(del=>{
                 setDisplay("none")
             })

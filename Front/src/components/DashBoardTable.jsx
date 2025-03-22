@@ -88,7 +88,7 @@ export default function DashBoardTable(){
 
         setTimeout(() => {
             if (email !== null) {
-                axios.get(`http://localhost:3000/api/getTask?idUser=${email}`)
+                axios.get(`https://taskflow-back.onrender.com/api/getTask?idUser=${email}`)
                 .then(task=>{
                     let tasks = task.data.data
                     let indexes = []

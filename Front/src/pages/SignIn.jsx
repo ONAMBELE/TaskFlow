@@ -11,7 +11,7 @@ export default function SignIn() {
     const [err,setErr] = useState("")
 
     async function singIn() {
-        await axios.post("http://localhost:3000/api/setuser",{
+        await axios.post("https://taskflow-back.onrender.com/api/setuser",{
             name: name,
             surname: surname,
             email: email,

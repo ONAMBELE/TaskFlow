@@ -11,7 +11,7 @@ export default function Login(props) {
 
     function getUser() {
 
-        axios.get(`http://localhost:3000/api/getuser?email=${email}&password=${password}`)
+        axios.get(`https://taskflow-back.onrender.com/api/getuser?email=${email}&password=${password}`)
         .then(res=>{
             console.log("Res: " + res.data.data.email)
             localStorage.setItem("email",res.data.data.email)
