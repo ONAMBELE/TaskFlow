@@ -43,9 +43,9 @@ export default function FormAddTask(props) {
                     .then(_task=>{
                         console.log("CREATION")
                         localStorage.removeItem("days")
-                        //setTimeout(() => {
-                        //  window.location.reload()
-                        //}, 1000);
+                        setTimeout(() => {
+                          window.location.reload()
+                        }, 1000);
                     })
                     .catch(err=>{ console.log("Error: " + err)})
                 })

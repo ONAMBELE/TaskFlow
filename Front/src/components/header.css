@@ -1,27 +1,30 @@
 .Header{
     height: 3em;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding:  0.5em 2em 0.5em 1em;
-    background-color: var(--blue1);
-    width: 90%;
+    align-items: start;
+    flex-direction: column;
+    padding: 0;
+    background-color: white;
+    width: 20%;
+    height: 95%;
     position: fixed;
-    left: 5%;
-    top: 2%;
+    left: 0;
+    top: 0;
     border-radius: 2px; 
-    box-shadow: 0 0 5px rgb(163, 161, 161);
+    box-shadow: 1px 3px 10px rgb(34, 33, 33);
     z-index: 200;
+    overflow: hidden;
 }
 
 .Header h1{
-    width: max-content;
+    width: 100%;
+    text-align: center;
     font-size: 1.5em;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: center;
     color: var(--color1);
-    filter: blur(0.75px);
+    margin-bottom: 1em;
 }
 
 .Header h1 img{
@@ -37,25 +40,79 @@
     justify-content: space-between;
 }
 
-.Header .register a{
-    text-decoration: none;
-    color: rgb(56, 56, 235);
-    font-family: "poppins";
+.profile{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2em;
 }
 
-.profile{
-    border: 1px solid var(--color2);
-    width: 3em;
-    height: 2em;
+.profile span{
+    box-shadow: 1px 1px 5px gray;
+    padding: 1em;
     border-radius: 0;
-    text-align: center;
     color: white;
     font-weight: 600;
     letter-spacing: 2px;
     background-color: rgb(255, 116, 2);
-    border-radius: 5px;
+    border-radius: 2em;
     text-transform: uppercase;
 }
+
+.options{
+    width: 100%;
+    height: 7em;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.options li{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 45%;
+    font-weight: 900;
+    font-size: 1em;
+    padding-left: 1em;
+    position: relative;
+    transition: .75s;
+    border-radius: 1em;
+    cursor: pointer;
+}
+
+.options li:hover{
+    background-color: rgb(197, 12, 197);
+}
+
+.options li img{
+    width: 2em;
+}
+
+.options li div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.options li .circle{
+    position: absolute;
+    right: -1.95em;
+    width: 4em;
+    height: 4em;
+    border-radius: 100%;
+}
+
+.options li:first-child .circle{
+    transition: 0;    
+} 
+
+
 
 @media screen and (max-width: 1156px){
     

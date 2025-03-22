@@ -22,7 +22,7 @@ app.get("/",(req,res)=>{
     res.send("Hello depuis l'API.")
 })
 
-cron.schedule("*/30 * * * *",()=> {
+cron.schedule("0 0,20 * * *",()=> {
     console.log("⏳ Attente avant l'envoi...");
     manageTask.check()
    console.log("⏳ Envoi automatique de l'email...");
@@ -35,7 +35,9 @@ require("./routes/user/setUser")(app)
 require("./routes/task/setTask")(app)
 require("./routes/task/getTask")(app)
 require("./routes/user/getUser")(app)
+require("./routes/user/getProfile")(app)
 require("./routes/task/deleteTask")(app)
+require("./routes/user/deleteUser")(app)
 require("./routes/task/updateTask")(app)
 
 app.use(({res})=>{

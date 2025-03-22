@@ -1,18 +1,19 @@
+import "./DashBoardTable.css"
+import axios from "axios"
 import { useEffect, useState } from "react"
-import FormAddTask from "./FormAddTask"
-import "./dashboardSection.css"
-import axios, { AxiosError } from "axios"
-import Header from "./Header"
-import PopUpPrintTasks from "./popUpPrintTasks"
+import FormAddTask from "../components/FormAddTask"
+import PopUpPrintTasks from "../components/popUpPrintTasks"
 import { useNavigate } from "react-router-dom"
 
 
-export default function DashboardSection() {
-    const [formTask,setFromTask] = useState("")
+
+export default function DashBoardTable(){
+    const [tableVisibility,setTableVisibility] = useState("0")
     const [email,setEmail] = useState("")
     const [_class,setClass] = useState("")
+    const [formTask,setFromTask] = useState("")
     const [popUpPrintTasks,setPopUpPrintTasks] = useState("")
-    const [tableVisibility,setTableVisibility] = useState("0")
+    
     
     let taskList = []
     const navigate = useNavigate()
@@ -115,8 +116,7 @@ export default function DashboardSection() {
                 })
                 .catch(error=>{
                     if (error.response.data.message !== "Aucune tache pour l'utilisateur ") {
-                        console.log("Error: ")
-                        console.log(error)
+                        //console.log({Error: error})
                     }
                 })
             }
@@ -124,35 +124,28 @@ export default function DashboardSection() {
 
     })
 
-    
-    return (
 
-        <div className="DashboardSection">
-            <Header/>
-            {formTask}
+
+    return (
+        <div>
             {_class}
+            {formTask}
             {
                 popUpPrintTasks
-            }           
+            } 
+
             <table onClick={(e)=>{
-                    printInstructions()
-                    setTableVisibility("0")
-                    setPopUpPrintTasks("")
+                setTableVisibility("0")
+                setPopUpPrintTasks("")
                 }}
                 style={{
                     filter: `blur(${tableVisibility})`
                 }}
-            >
-
+            >   
                 <thead>
                     <tr>
-                        <td className="space"> 
-                            <button className="add"
-                                onClick={()=>{ setFromTask(
-                                        <FormAddTask display="flex" email={email} />
-                                    )
-                                }}
-                            >+</button> 
+                        <td className="add" onClick={()=>{ setFromTask( <FormAddTask display="flex" email={email} />)}}> 
+                            <img src="/add.svg" alt="add" />
                         </td>
                         <td>MON</td>
                         <td>TUE</td>
@@ -162,8 +155,10 @@ export default function DashboardSection() {
                         <td>SAT</td>
                         <td>SUN</td>
                     </tr>
-               </thead>
-               <tbody onDoubleClick={(e)=>{printTasksDescriptions(e)}}>
+                </thead>
+                <tbody onDoubleClick={(e)=>{printTasksDescriptions(e)}}
+                    onClick={()=> printInstructions()}
+                 >
                     <tr>
                         <td className="hour">00:00 - 02:00</td>
                         <td></td>
@@ -284,8 +279,8 @@ export default function DashboardSection() {
                         <td></td>
                         <td></td>
                     </tr>                
-               </tbody>
-            </table>
+                </tbody>
+        </table>
         </div>
     )
 

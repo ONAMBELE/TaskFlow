@@ -3,7 +3,6 @@ import "./login.css"
 import { NavLink,useNavigate } from "react-router-dom"
 import axios from "axios"
 
-
 export default function Login(props) {
     const [errors,setErrors] = useState("")
     const [email,setEmail] = useState("")
