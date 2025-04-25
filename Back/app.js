@@ -39,6 +39,7 @@ require("./routes/user/getProfile")(app)
 require("./routes/task/deleteTask")(app)
 require("./routes/user/deleteUser")(app)
 require("./routes/task/updateTask")(app)
+require("./routes/user/updateUser")(app)
 
 app.use(({res})=>{
     const message = "Impossible de trouver le service demandé. Veuillez saisir une autre URL."

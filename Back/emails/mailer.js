@@ -5,8 +5,8 @@ const transporter = nodemailer.createTransport({
 
     service: "gmail",
     auth:{
-        user: "konibryan4@gmail.com",
-        pass: "wqkv suxy ivtp kxbm"
+        user: "@email",
+        pass: "@KEY"
     }
 });
 
@@ -15,7 +15,7 @@ const sendEmail = async (email,subject,message,html)=>{
     try{
         console.log("Initialisation avant l'envoie.")
         let info = await transporter.sendMail({
-            from: '"TaskFlow" konibryan4@gmail.com',
+            from: '"TaskFlow" @email',
             to: email,
             subject: subject,
             text: message,
